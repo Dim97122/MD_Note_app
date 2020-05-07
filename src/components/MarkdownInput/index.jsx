@@ -1,20 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useInputChange from './useInputChange.jsx';
+import './MarkdownInput.css'
+import '../Button/Button.css';
 
-const MarkdownInput = () => {
+const MarkdownInput = (props) => {
   const [input, handleInputChange] = useInputChange()
 
+  const saveItem = (e) => {
+    e.preventDefault();
+    localStorage.setItem(input.title, input.body);
+    window.location.reload(false);
+  }
+
+  useEffect(() => {
+    props.convert(input.title, input.body);
+  }, [input, props]);
+
   return (
-    <form>
-      <div>
-        <label>Titre de la Note:</label>
-        <input type="text" name="title" onChange={handleInputChange} />
+    <form className="mt-5">
+      <div className="mb-3">
+        <input
+          type="text"
+          name="title"
+          onChange={handleInputChange}
+          className="grey-input"
+        />
       </div>
-      <div>
-        <label>Corps de la Note:</label>
-        <input type="text" name="body" onChange={handleInputChange} />
+      <div className="mb-3">
+        <textarea
+          type="text"
+          name="body"
+          rows="6"
+          cols="40"
+          onChange={handleInputChange}
+          className="grey-input"
+        />
       </div>
-      <input type="submit" value="Sauvegarder" />
+      <input
+        onClick={saveItem}
+        type="submit"
+        value="Sauvegarder"
+        className="btn red-button"
+      />
     </form>
   )
 }

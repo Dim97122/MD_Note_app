@@ -1,34 +1,33 @@
 import React from 'react';
 import Showdown from "showdown";
 
-
-const NoteDisplay = (props) => {
-  console.log(props.converted_title);
-
-
+const NoteCard = (props) => {
+  const converter = new Showdown.Converter();
+  var htmlTitle = converter.makeHtml(props.title);
+	var htmlNote = converter.makeHtml(props.body);
 	const createMarkupNote = () => {
 		return {
-			__html: props.converted_body
+			__html: htmlNote,
 		}
 	};
 
 	const createMarkupTitle = () => {
 		return {
-			__html: props.converted_title
+			__html: htmlTitle,
 		}
 	};
 
   return (
     <>
-      <div className= "border mb-3 d-flex flex-column display-wrapper" style={{height:'30vh'}}>
+      <div className="note-card-wrapper">
         <div
           dangerouslySetInnerHTML={createMarkupTitle()}
-          style={{color:"red", fontWeight: "bold"}}
+          style={{color: '#c82e23', fontSize:'2.2em',  fontWeight: 'bold'}}
         >
         </div>
         <div
           dangerouslySetInnerHTML={createMarkupNote()}
-          style={{maxWidth: "100%", color:"white"}}
+          style={{color: 'white'}}
         >
         </div>
       </div>
@@ -36,4 +35,6 @@ const NoteDisplay = (props) => {
   )
 }
 
-export default NoteDisplay;
+
+
+export default NoteCard;

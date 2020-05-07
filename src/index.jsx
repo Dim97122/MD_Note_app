@@ -6,7 +6,9 @@ import NoteDeck from './components/NoteDeck';
 const App = () => {
   return (
     <>
+    <div style={{height: '100%'}}>
       < NoteDeck />
+    </div>
     </>
   )
 }
